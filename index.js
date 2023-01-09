@@ -2,19 +2,24 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+const config = require('./config/key');
+
 const{ User } = require("./models/User");
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb+srv://wodud:rosua112@cluster0.alktmxb.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.set('strictQuery',true)
+mongoose.connect(config.mongoURI, {
   
 }).then(() => console.log("MongoDB 잘된다."))
   .catch(err => console.log(err))
 
+ 
+
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World! 잘된다 또 확인')
 })
 
 app.post('/register', (req, res) => {
